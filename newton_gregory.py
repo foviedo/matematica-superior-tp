@@ -19,8 +19,10 @@ def newton_gregory(*puntos: Tuple[int, int]):
 
     # Armo el polinomio
     sumatoria = tabla[0][1]
-    for i in range(1, cantidad_puntos):
-        sumatoria += (proterm(i, x, puntos) * tabla[0][i])
+    for i in range(2, cantidad_puntos+1):
+        a_n = tabla[0][i]
+        p = proterm(i-1, x, puntos)
+        sumatoria += ( a_n * p )
 
     return sumatoria
 
@@ -39,9 +41,9 @@ def newton_gregory_regresivo(*puntos: Tuple[int, int]):
     print_tabla_diferencias_divididas(puntos, tabla)
 
     # Armo el polinomio
-    sumatoria = tabla[cantidad_puntos-1][1]
-    for i in range(1, cantidad_puntos):
-        sumatoria += (proterm_regresivo(i, x, puntos) * tabla[0][i])
+    sumatoria = tabla[-1][1]
+    for i in range(2, cantidad_puntos+1):
+        sumatoria += (proterm_regresivo(i, x, puntos) * tabla[-1][i])
 
     return sumatoria
 
@@ -58,8 +60,7 @@ def proterm_regresivo(i, x, puntos):
     cantidad_puntos = len(puntos)
     pro = 1
     for j in range(1, i):
-        tmp = (x - puntos[cantidad_puntos-j][0])
-        pro = pro * tmp
+        pro = pro * (x - puntos[cantidad_puntos-j][0])
     return pro
 
 
@@ -85,7 +86,7 @@ def tabla_diferencias_divididas_regresiva(puntos, tabla, cantidad_puntos):
 
 def print_tabla_diferencias_divididas(puntos, tabla):
     cantidad_puntos = len(tabla)
-    for i, element in enumerate(tabla):
+    for i, element in enumerate(tabla): # Con esto agrego la columna de x
         element.insert(0, puntos[i][0])
     encabezado = ["x", "f(x)"]
     for i in range(1, cantidad_puntos):
@@ -97,10 +98,13 @@ def print_tabla_diferencias_divididas(puntos, tabla):
     print(resultado.draw(), '\n')
 
 
-# a = newton_gregory((1, 1), (3, 3), (4, 13), (5, 37), (7, 151))
-# print(a)
-# print(simplify(a))
+a = newton_gregory((1, 1), (3, 3), (4, 13), (5, 37), (7, 151))
+print(a)
+print(simplify(a))
 
 b = newton_gregory_regresivo((1, 1), (3, 3), (4, 13), (5, 37), (7, 151))
 print(b)
 print(simplify(b))
+
+if simplify(a) == simplify(b):
+    print ("\033[92m"+"Los 2 métodos dan lo mismo"+"\033[0m")
