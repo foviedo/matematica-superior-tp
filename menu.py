@@ -1,75 +1,36 @@
-#!/usr/bin/python3
- 
-def elegirOpcion():
-    correcto = False
-    num = 0
-    while(not correcto):
-        try:
-            num = int(input())
-            correcto = True
-        except ValueError:
-            print('Error, introduce una opcion')
-     
-    return num
+from tkinter import *
+#from newton_gregory import *
 
-salir = False
-opcion = 0
+#Creo el formulario
+window = Tk()
+#Defino la tupla y la lista de tuplas que voy a ir cargando abajo
+#t = tuple[int, int]
+#l = list()
 
-while not salir:
+#Titulo principal
+window.title("FINTER")
+#Tamaño del formulario
+window.geometry('500x500')
 
-    print ("**********************")
-    print ("********FINTER********")
-    print ("**********************")
-    print ()
-    print ("********MENU********");
-    print ()
-    print ("1. Ingresar Datos")
-    print ("2. Mostrar pasos del calculo")
-    print ("3. Especializar el polinomio en un valor K")
-    print ("4. Alterar valores iniciales")
-    print ("5. Finalizar")
-     
-    print ("Elige una opcion")
- 
-    opcion = elegirOpcion()
-    
-    if opcion == 1:
-        salirSubmenu = False
+#Creo el label principal
+lbl = Label(window, text="Bienvenido a FINTER", font=("Arial", 25), fg="red")
+#No se que es, pero si no lo pongo no se muestra el label XD
+#lbl.pack()
+lbl.grid(column=0, row=0)
 
-        while not salirSubmenu:
+txt = Entry(window, width=5)
+txt.grid(column=1, row=1)
 
-            print ("Opcion 1")
-            print ("Interpolar por medio de:")
-            print ("1. Polinomio de Lagrange")
-            print ("2. Newton Gregory Progresivo")
-            print ("3. Newton Gregory Regresivo")
-            print ("4. Finalizar")
-            print ("Elige una opcion")
- 
-            opcionSubmenu = elegirOpcion()
+txt2 = Entry(window, width=5)
+txt2.grid(column=2, row=1)
 
-            if opcionSubmenu == 1:
-                print ("Lagrange");
-                # metodo para calcular Lagrange
-            elif opcionSubmenu == 2:
-                print ("NGProgresivo");
-                # metodo para calcular NGProgresivo
-            elif opcionSubmenu == 3:
-                print ("NGRegresivo");
-                # metodo para calcular NGRegresivo
-            elif opcionSubmenu == 4:
-                salirSubmenu = True
-            else:
-                print ("Introduce un numero entre 1 y 3")
+#Defino la función del click. que deberia crear la tupa como (x,y) y guardarla en una lista
+# def clicked():
+#     t = (txt.get(), txt2.get())
+#     l.append(t)
 
+#Creo botón
+btn = Button(window, text='Click here') #, command=clicked)
+btn.grid(column=3, row=1)
 
-    elif opcion == 2:
-        print ("Opcion 2")
-    elif opcion == 3:
-        print("Opcion 3")
-    elif opcion == 5:
-        salir = True
-    else:
-        print ("Introduce un numero entre 1 y 3")
- 
-print ("Fin")
+window.mainloop()
