@@ -35,6 +35,11 @@ class Menu:
         self.tree.heading('#0', text='X', anchor=CENTER)
         self.tree.heading('#1', text='Y', anchor=CENTER)
 
+        # Buttons
+        ttk.Button(text='Borrar', command=self.delete_punto).grid(row=5, column=0, sticky=W + E)
+        ttk.Button(text='Iniciar', command=self.pcd_iniciar).grid(row=5, column=1, sticky=W + E)
+
+
 # User Input Validation
     def validation(self):
         return len(self.px.get()) != 0 and len(self.py.get()) != 0
@@ -47,6 +52,28 @@ class Menu:
             self.py.delete(0, END)
         else:
             self.message['text'] = 'No se pudo ingresar el punto'
+
+    def delete_punto(self):
+        self.message['text'] = ''
+        try:
+            self.tree.item(self.tree.selection())['text'][0]
+        except IndexError as e:
+            self.message['text'] = 'Please select a Record'
+            return
+        self.message['text'] = ''
+        self.tree.delete(self.tree.selection())
+        self.message['text'] = 'El punto fue eliminado correctamente'
+
+    def pcd_iniciar(self):
+        #x = list()
+        #y = list()
+        #puntos = self.tree.get_children()
+        #for item in puntos:
+        #    x.insert(self.tree.index(item)['text'][0])
+        #    y.insert(self.tree.index(item)['value'][0])
+
+        # L = list(zip(x,y))
+        print('s')
 
 if __name__ == '__main__':
     window = Tk()
