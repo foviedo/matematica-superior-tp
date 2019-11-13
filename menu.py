@@ -13,13 +13,14 @@ class Menu:
         frame.grid(row=0, column=0, columnspan=1, pady=20, padx=20)
 
         # Creo botones radiales para seleccionar el Metodo
+        self.metodo = StringVar()
         frame2 = LabelFrame(self.wind, text='Seleccione un método para aproximar')
         frame2.grid(row=0, column=1, columnspan=1, pady=20, padx=20)
-        rl = Radiobutton(frame2, text="Lagrange", value='lagrange')
+        rl = Radiobutton(frame2, text="Lagrange", value='lagrange', variable=self.metodo)
         rl.grid(row=1, column=0, sticky=W)
         rl.select() # Lagrange va a ser el default
-        Radiobutton(frame2, text="Newton-Gregory (Progresivo)", value='ng-progresivo').grid(row=2, column=0, sticky=W)
-        Radiobutton(frame2, text="Newton-Gregory (Regresivo)", value='ng-regresivo').grid(row=3, column=0, sticky=W)
+        Radiobutton(frame2, text="Newton-Gregory (Progresivo)", value='ng-progresivo', variable=self.metodo).grid(row=2, column=0, sticky=W)
+        Radiobutton(frame2, text="Newton-Gregory (Regresivo)", value='ng-regresivo', variable=self.metodo).grid(row=3, column=0, sticky=W)
 
         # X Input
         Label(frame, text='X: ').grid(row=1, column=0)
@@ -84,15 +85,17 @@ class Menu:
         self.message['text'] = 'El punto fue eliminado correctamente'
 
     def pcd_iniciar(self):
-        #x = list()
-        #y = list()
-        #puntos = self.tree.get_children()
-        #for item in puntos:
-        #    x.insert(self.tree.index(item)['text'][0])
-        #    y.insert(self.tree.index(item)['value'][0])
+        puntos = []
+        for item in self.tree.get_children():
+            elemento = self.tree.item(item)
+            x = float(elemento["text"])
+            y = float(elemento["values"][0])
+            puntos.append((x, y))
 
-        # L = list(zip(x,y))
-        print('s')
+        puntos.sort(key=lambda tup: tup[0])
+        met = self.metodo.get()
+        print(met)
+        print(puntos)
 
 
 def is_float(s):
