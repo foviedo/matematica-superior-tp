@@ -1,36 +1,54 @@
+from tkinter import ttk
 from tkinter import *
-#from newton_gregory import *
 
-#Creo el formulario
-window = Tk()
-#Defino la tupla y la lista de tuplas que voy a ir cargando abajo
-#t = tuple[int, int]
-#l = list()
+class Menu:
+    def __init__(self, window):
+        # Initializations
+        self.wind = window
+        self.wind.title('FINTER')
 
-#Titulo principal
-window.title("FINTER")
-#Tamaño del formulario
-window.geometry('500x500')
+        # Creating a Frame Container
+        frame = LabelFrame(self.wind, text='Ingrese los puntos a interpolar')
+        frame.grid(row=0, column=0, columnspan=3, pady=20)
 
-#Creo el label principal
-lbl = Label(window, text="Bienvenido a FINTER", font=("Arial", 25), fg="red")
-#No se que es, pero si no lo pongo no se muestra el label XD
-#lbl.pack()
-lbl.grid(column=0, row=0)
+        # Name Input
+        Label(frame, text='X: ').grid(row=1, column=0)
+        self.px = Entry(frame)
+        self.px.focus()
+        self.px.grid(row=1, column=1)
 
-txt = Entry(window, width=5)
-txt.grid(column=1, row=1)
+        # Price Input
+        Label(frame, text='Y: ').grid(row=2, column=0)
+        self.py = Entry(frame)
+        self.py.grid(row=2, column=1)
 
-txt2 = Entry(window, width=5)
-txt2.grid(column=2, row=1)
+        # Button Add Product
+        ttk.Button(frame, text='Ingresar punto', command = self.add_punto).grid(row=3, columnspan=2, sticky=W + E)
 
-#Defino la función del click. que deberia crear la tupa como (x,y) y guardarla en una lista
-# def clicked():
-#     t = (txt.get(), txt2.get())
-#     l.append(t)
+        # Output Messages
+        self.message = Label(text='', fg='red')
+        self.message.grid(row=3, column=0, columnspan=2, sticky=W + E)
 
-#Creo botón
-btn = Button(window, text='Click here') #, command=clicked)
-btn.grid(column=3, row=1)
+        # Table
+        self.tree = ttk.Treeview(height=10, columns=2)
+        self.tree.grid(row=4, column=0, columnspan=2)
+        self.tree.heading('#0', text='X', anchor=CENTER)
+        self.tree.heading('#1', text='Y', anchor=CENTER)
 
-window.mainloop()
+# User Input Validation
+    def validation(self):
+        return len(self.px.get()) != 0 and len(self.py.get()) != 0
+
+    def add_punto(self):
+        if self.validation():
+            self.tree.insert('', 0, text=self.px.get(), values=self.py.get())
+            self.message['text'] = 'Punto ingresado correctamente'
+            self.px.delete(0, END)
+            self.py.delete(0, END)
+        else:
+            self.message['text'] = 'No se pudo ingresar el punto'
+
+if __name__ == '__main__':
+    window = Tk()
+    application = Menu(window)
+    window.mainloop()
