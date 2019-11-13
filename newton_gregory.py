@@ -24,7 +24,7 @@ def newton_gregory(*puntos: Tuple[int, int]):
         p = proterm(i-1, x, puntos)
         sumatoria += ( a_n * p )
 
-    return sumatoria
+    return simplify(sumatoria)
 
 
 def newton_gregory_regresivo(*puntos: Tuple[int, int]):
@@ -45,7 +45,7 @@ def newton_gregory_regresivo(*puntos: Tuple[int, int]):
     for i in range(2, cantidad_puntos+1):
         sumatoria += (proterm_regresivo(i, x, puntos) * tabla[-1][i])
 
-    return sumatoria
+    return simplify(sumatoria)
 
 
 # Function to find the product term
@@ -98,13 +98,13 @@ def print_tabla_diferencias_divididas(puntos, tabla):
     print(resultado.draw(), '\n')
 
 
-a = newton_gregory((1, 1), (3, 3), (4, 13), (5, 37), (7, 151))
-print(a)
-print(simplify(a))
-
-b = newton_gregory_regresivo((1, 1), (3, 3), (4, 13), (5, 37), (7, 151))
-print(b)
-print(simplify(b))
-
-if simplify(a) == simplify(b):
-    print ("\033[92m"+"Los 2 métodos dan lo mismo"+"\033[0m")
+# a = newton_gregory((1, 1), (3, 3), (4, 13), (5, 37), (7, 151))
+# print(a)
+# print(simplify(a))
+#
+# b = newton_gregory_regresivo((1, 1), (3, 3), (4, 13), (5, 37), (7, 151))
+# print(b)
+# print(simplify(b))
+#
+# if simplify(a) == simplify(b):
+#     print ("\033[92m"+"Los 2 métodos dan lo mismo"+"\033[0m")

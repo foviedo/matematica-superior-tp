@@ -1,5 +1,7 @@
 from tkinter import ttk
 from tkinter import *
+import newton_gregory
+import lagrange
 
 
 class Menu:
@@ -13,14 +15,19 @@ class Menu:
         frame.grid(row=0, column=0, columnspan=1, pady=20, padx=20)
 
         # Creo botones radiales para seleccionar el Metodo
-        self.metodo = StringVar()
+        self.metodoVar = StringVar()
         frame2 = LabelFrame(self.wind, text='Seleccione un método para aproximar')
         frame2.grid(row=0, column=1, columnspan=1, pady=20, padx=20)
-        rl = Radiobutton(frame2, text="Lagrange", value='lagrange', variable=self.metodo)
+        rl = Radiobutton(frame2, text="Lagrange", value='Lagrange', variable=self.metodoVar)
         rl.grid(row=1, column=0, sticky=W)
         rl.select() # Lagrange va a ser el default
-        Radiobutton(frame2, text="Newton-Gregory (Progresivo)", value='ng-progresivo', variable=self.metodo).grid(row=2, column=0, sticky=W)
-        Radiobutton(frame2, text="Newton-Gregory (Regresivo)", value='ng-regresivo', variable=self.metodo).grid(row=3, column=0, sticky=W)
+        Radiobutton(frame2, text="Newton-Gregory (Progresivo)",
+                    value='Newton-Gregory (Progresivo)',
+                    variable=self.metodoVar).grid(row=2, column=0, sticky=W)
+
+        Radiobutton(frame2, text="Newton-Gregory (Regresivo)",
+                    value='Newton-Gregory (Regresivo)',
+                    variable=self.metodoVar).grid(row=3, column=0, sticky=W)
 
         # X Input
         Label(frame, text='X: ').grid(row=1, column=0)
@@ -37,7 +44,7 @@ class Menu:
         ttk.Button(frame, text='Ingresar punto', command = self.add_punto).grid(row=3, columnspan=2, sticky=W+E)
 
         # Output Messages
-        self.message = Label(text='', fg='red')
+        self.message = Label(text='Utilice el punto como signo para separar decimales. ej: 3.141592', fg='grey')
         self.message.grid(row=3, column=0, columnspan=2, sticky=W + E)
 
         # Table
@@ -85,17 +92,48 @@ class Menu:
         self.message['text'] = 'El punto fue eliminado correctamente'
 
     def pcd_iniciar(self):
-        puntos = []
+        # self.puntos = []
+        self.puntos = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)]# Borrar esta linea y despues dejar la anterior
         for item in self.tree.get_children():
             elemento = self.tree.item(item)
             x = float(elemento["text"])
             y = float(elemento["values"][0])
-            puntos.append((x, y))
+            self.puntos.append((x, y))
 
-        puntos.sort(key=lambda tup: tup[0])
-        met = self.metodo.get()
-        print(met)
-        print(puntos)
+        if len(self.puntos) == 0:
+            self.message['fg'] = 'red'
+            self.message['text'] = 'Debe ingresar al menos un número'
+            return
+
+        self.puntos.sort(key=lambda tup: tup[0])
+        self.metodo = self.metodoVar.get()
+        print(self.metodo)
+        print(self.puntos)
+        # self.wind.withdraw()
+
+        self.finter()
+
+
+    def finter(self):
+        ventana = Toplevel(self.wind)
+
+        frame = ttk.LabelFrame(ventana, text="Resolviendo por el método de {}:".format(self.metodo))
+        frame.grid(row=0, column=0, columnspan=1)
+
+        resultado, pasos = lagrange.lagrange(*self.puntos)
+
+        Label(frame, text=pasos, anchor="e").grid(row=0, column=0)
+        # mytext = StringVar(value=pasos)
+        # myentry = ttk.Entry(frame, textvariable=mytext, state='readonly')
+        # myentry.pack
+        # myscroll = ttk.Scrollbar(frame, orient='vertical', command=myentry.xview)
+        # myentry.config(xscrollcommand=myscroll.set)
+        # myentry.grid(row=1, sticky='ew')
+        # myscroll.grid(row=2, sticky='ew')
+
+        frameFinal = ttk.LabelFrame(ventana, text="Resultado Final")
+        frameFinal.grid(row=2, column=0, columnspan=1)
+        ttk.Label(frameFinal, text=resultado).grid(row=0, column=0, sticky="ew")
 
 
 def is_float(s):

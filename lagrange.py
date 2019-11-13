@@ -6,10 +6,20 @@ from sympy.abc import x, y
 def lagrange(*puntos: Tuple[int, int]):
     cantidad_puntos = len(puntos)
     sumatoria = 0
+    pasos = "Primero me fijo cuandos puntos tengo, en este caso son {}\n".format(cantidad_puntos)
+    pasos += "Por cada punto vamos a calcular primero el L(x) y multiplicarlo por f(xi).\n" \
+             "Luego, la suma de estos resultados será el polinomio interpolante de Lagrange.\n\n"
     for i in range(cantidad_puntos):
+        pasos += "Punto {} de {}:\n".format(i+1, cantidad_puntos)
         y = puntos[i][1]
-        sumatoria += L(i, *puntos) * y
-    return sumatoria
+        l_de_i = L(i, *puntos)
+        pasos += "\tL(x) = {}\n\tf(x{}) = {}\n".format(l_de_i, i, y)
+        sumatoria += l_de_i * y
+
+    pasos += "Sumando los {} terminos anteriores obtenemos:\n\t{}\n".format(cantidad_puntos, sumatoria)
+    pasos += "Y operando finalmente obtenemos:\n\t{}\n".format(simplify(sumatoria))
+
+    return simplify(sumatoria), pasos
 
 
 def L(i, *puntos: Tuple[int, int]):
@@ -25,14 +35,14 @@ def L(i, *puntos: Tuple[int, int]):
 
 
     # Ejemplo de como se usa la funcion
-print(L(0, (1,2), (3,4)))
-print(L(0, (1,2), (6,7)))
-print(L(0, (1,2), (3,4), (6,7)))
-
-print("---------")
-a = lagrange((1,1), (2,8), (4,64))
-print(a)
-print(simplify(a))
+# print(L(0, (1,2), (3,4)))
+# print(L(0, (1,2), (6,7)))
+# print(L(0, (1,2), (3,4), (6,7)))
+#
+# print("---------")
+# a = lagrange((1,1), (2,8), (4,64))
+# print(a)
+# print(simplify(a))
 #print(a)
 
 #print(eval(str(lagrange((1,2), (3,4), (6,7)))))
