@@ -11,13 +11,13 @@ class Menu:
         frame = LabelFrame(self.wind, text='Ingrese los puntos a interpolar')
         frame.grid(row=0, column=0, columnspan=3, pady=20)
 
-        # Name Input
+        # X Input
         Label(frame, text='X: ').grid(row=1, column=0)
         self.px = Entry(frame)
         self.px.focus()
         self.px.grid(row=1, column=1)
 
-        # Price Input
+        # Y Input
         Label(frame, text='Y: ').grid(row=2, column=0)
         self.py = Entry(frame)
         self.py.grid(row=2, column=1)
@@ -42,12 +42,17 @@ class Menu:
 
 # User Input Validation
     def validation(self):
-        return len(self.px.get()) != 0 and len(self.py.get()) != 0
+        ptoX:str = self.px.get()
+        ptoY:str = self.py.get()
+        puntos_no_nulos = len(ptoX) != 0 and len(ptoY) != 0
+        puntos_son_floats = is_float(ptoX) and is_float(ptoY)
+        return puntos_no_nulos and puntos_son_floats
 
     def add_punto(self):
         if self.validation():
             self.tree.insert('', 0, text=self.px.get(), values=self.py.get())
             self.message['text'] = 'Punto ingresado correctamente'
+            self.message['fg'] = 'green'
             self.px.delete(0, END)
             self.py.delete(0, END)
         else:
@@ -74,6 +79,15 @@ class Menu:
 
         # L = list(zip(x,y))
         print('s')
+
+
+def is_float(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
 
 if __name__ == '__main__':
     window = Tk()
