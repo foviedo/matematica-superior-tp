@@ -70,7 +70,7 @@ def newton_gregory_regresivo(*puntos: Tuple[int, int]):
 
     pasos += "\nSumando los terminos anteriores nuestro polinomio resulta:\n\tP(x) = {}\n\n".format(sumatoria)
     pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(simplify(sumatoria))
-    return simplify(sumatoria)
+    return simplify(sumatoria), pasos
 
 
 # Function to find the product term
