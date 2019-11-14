@@ -35,8 +35,6 @@ def newton_gregory(*puntos: Tuple[int, int]):
         p = proterm(i-1, x, puntos)
         pasos += "Termino {} de {}:\n".format(i, cantidad_puntos)
         pasos += "\ta{} = {}\n\t{} * {}\n".format(i-1, a_n, a_n, p)
-
-
         sumatoria += ( a_n * p )
 
     pasos +="\nSumando los terminos anteriores nuestro polinomio resulta:\n\tP(x) = {}\n\n".format(sumatoria)
@@ -46,7 +44,9 @@ def newton_gregory(*puntos: Tuple[int, int]):
 
 def newton_gregory_regresivo(*puntos: Tuple[int, int]):
     cantidad_puntos = len(puntos)
-
+    pasos = "Primero me fijo cuandos puntos tengo, en este caso son {}:\n\t{}\n".format(cantidad_puntos, puntos)
+    pasos += "\nPara realizar el método de Newton Gregory vamos a trabajar con la tabla de diferencias divididas regresivas.\n" \
+             "Con los puntos que tenemos la tabla nos queda así:.\n\n"
     # Creo la tabla llena de 0s
     tabla = [[0 for i in range(cantidad_puntos)] for j in range(cantidad_puntos)]
     # Cargo los f(x) de la tabla
@@ -54,14 +54,22 @@ def newton_gregory_regresivo(*puntos: Tuple[int, int]):
         tabla[indice][0] = puntos[indice][1]
     # Genero la tabla de diferencias divididas
     tabla = tabla_diferencias_divididas_regresiva(puntos, tabla, cantidad_puntos);
-
-    print_tabla_diferencias_divididas(puntos, tabla)
+    pasos += tabla_diferencias_divididas_to_string(puntos, tabla)
+    pasos += "\n\nAhora, planteamos el polinomio:\n" \
+             "\tP(x)=b0+b1(x-xn)+b2(x-xn)(x-xn-1)+....+bn(x-xn)(x-xn-1)....(x-x1)\n"
+    pasos += "Donde cada \"bn\" es un elemento de la última fila en nuestra tabla de diferencias divididas regresivas.\n\n"
 
     # Armo el polinomio
     sumatoria = tabla[-1][1]
+    pasos += "Termino 1 de {}:\n".format(cantidad_puntos)
+    pasos += "\ta0 = {}\n".format(sumatoria)
     for i in range(2, cantidad_puntos+1):
         sumatoria += (proterm_regresivo(i, x, puntos) * tabla[-1][i])
+        pasos += "Termino {} de {}:\n".format(i, cantidad_puntos)
+        pasos += "\ta{} = {}\n\t{} * {}\n".format(i-1, a_n, a_n, p)
 
+    pasos += "\nSumando los terminos anteriores nuestro polinomio resulta:\n\tP(x) = {}\n\n".format(sumatoria)
+    pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(simplify(sumatoria))
     return simplify(sumatoria)
 
 

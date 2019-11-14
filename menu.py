@@ -92,8 +92,8 @@ class Menu:
         self.message['text'] = 'El punto fue eliminado correctamente'
 
     def pcd_iniciar(self):
-        # self.puntos = []
-        self.puntos = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)]# Borrar esta linea y despues dejar la anterior
+        self.puntos = []
+        #self.puntos = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)]# Borrar esta linea y despues dejar la anterior
         for item in self.tree.get_children():
             elemento = self.tree.item(item)
             x = float(elemento["text"])
