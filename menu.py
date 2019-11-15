@@ -1,8 +1,7 @@
 from tkinter import ttk
 from tkinter import *
-import newton_gregory
-import lagrange
-
+from newton_gregory import newton_gregory,newton_gregory_regresivo
+from lagrange import lagrange
 
 class Menu:
     def __init__(self, window):
@@ -119,8 +118,12 @@ class Menu:
 
         frame = ttk.LabelFrame(ventana, text="Resolviendo por el método de {}:".format(self.metodo))
         frame.grid(row=0, column=0, columnspan=1)
-
-        resultado, pasos = lagrange.lagrange(*self.puntos)
+        if(self.metodo == "Lagrange"):
+            resultado, pasos = lagrange(*self.puntos)
+        elif(self.metodo == "Newton-Gregory (Progresivo)"):
+            resultado, pasos = newton_gregory(*self.puntos)
+        elif(self.metodo == "Newton-Gregory (Regresivo)"):
+            resultado, pasos = newton_gregory_regresivo(*self.puntos)
 
         Label(frame, text=pasos, anchor="e").grid(row=0, column=0)
         # mytext = StringVar(value=pasos)

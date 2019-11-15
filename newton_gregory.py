@@ -62,11 +62,13 @@ def newton_gregory_regresivo(*puntos: Tuple[int, int]):
     # Armo el polinomio
     sumatoria = tabla[-1][1]
     pasos += "Termino 1 de {}:\n".format(cantidad_puntos)
-    pasos += "\ta0 = {}\n".format(sumatoria)
+    pasos += "\tb0 = {}\n".format(sumatoria)
     for i in range(2, cantidad_puntos+1):
-        sumatoria += (proterm_regresivo(i, x, puntos) * tabla[-1][i])
+        b_n = tabla[-1][i]
+        p = proterm_regresivo(i, x, puntos)
+        sumatoria += (b_n * p)
         pasos += "Termino {} de {}:\n".format(i, cantidad_puntos)
-        pasos += "\ta{} = {}\n\t{} * {}\n".format(i-1, a_n, a_n, p)
+        pasos += "\tb{} = {}\n\t{} * {}\n".format(i-1, b_n, b_n, p)
 
     pasos += "\nSumando los terminos anteriores nuestro polinomio resulta:\n\tP(x) = {}\n\n".format(sumatoria)
     pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(simplify(sumatoria))
