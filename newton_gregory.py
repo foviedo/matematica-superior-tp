@@ -40,7 +40,20 @@ def newton_gregory(*puntos: Tuple[int, int]):
     pasos +="\nSumando los terminos anteriores nuestro polinomio resulta:\n\tP(x) = {}\n\n".format(sumatoria)
     pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(resultado)
     indice = str(resultado).find("**")
-    pasos += " Grado del polinomio: {}".format(str(resultado)[indice + 2])
+    pasos += " Grado del polinomio: {} \n".format(str(resultado)[indice + 2])
+    if (cantidad_puntos == 1):
+        diferencia = 0
+    else:
+        diferencia = puntos[0][0] - puntos[1][0]
+    equiespaciados = True
+    for i in range((cantidad_puntos) - 1):
+        if (puntos[i][0] - puntos[i + 1][0] != diferencia):
+            equiespaciados = False
+        diferencia = puntos[i][0] - puntos[i + 1][0]
+    if (equiespaciados):
+        pasos+= "Los puntos son equiespaciados"
+    else:
+        pasos+= "Los puntos no son equiespaciados"
     return resultado, pasos
 
 
@@ -75,7 +88,20 @@ def newton_gregory_regresivo(*puntos: Tuple[int, int]):
     pasos += "\nSumando los terminos anteriores nuestro polinomio resulta:\n\tP(x) = {}\n\n".format(sumatoria)
     pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(resultado)
     indice = str(resultado).find("**")
-    pasos += " Grado del polinomio: {}".format(str(resultado)[indice + 2])
+    pasos += " Grado del polinomio: {} \n".format(str(resultado)[indice + 2])
+    if (cantidad_puntos == 1):
+        diferencia = 0
+    else:
+        diferencia = puntos[0][0] - puntos[1][0]
+    equiespaciados = True
+    for i in range((cantidad_puntos) - 1):
+        if (puntos[i][0] - puntos[i + 1][0] != diferencia):
+            equiespaciados = False
+        diferencia = puntos[i][0] - puntos[i + 1][0]
+    if (equiespaciados):
+        pasos+= "Los puntos son equiespaciados"
+    else:
+        pasos+= "Los puntos no son equiespaciados"
     return resultado, pasos
 
 

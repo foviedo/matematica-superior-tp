@@ -19,7 +19,27 @@ def lagrange(*puntos: Tuple[int, int]):
     pasos += "\nSumando los {} terminos anteriores obtenemos:\n\tP(x) = {}\n\n".format(cantidad_puntos, sumatoria)
     pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(resultado)
     indice = str(resultado).find("**")
-    pasos += " Grado del polinomio: {}".format(str(resultado)[indice+2])
+    if (indice == -1):
+        indice = str(resultado).find("*")
+        if (indice==-1):
+            pasos += " Grado del polinomio: 0 \n"
+        else:
+            pasos += " Grado del polinomio: 1 \n"
+    else:
+        pasos += " Grado del polinomio: {} \n".format(str(resultado)[indice+2])
+    if (cantidad_puntos == 1):
+        diferencia = 0
+    else:
+        diferencia = puntos[0][0] - puntos[1][0]
+    equiespaciados = True
+    for i in range((cantidad_puntos) - 1):
+        if (puntos[i][0] - puntos[i + 1][0] != diferencia):
+            equiespaciados = False
+        diferencia = puntos[i][0] - puntos[i + 1][0]
+    if (equiespaciados):
+        pasos+= "Los puntos son equiespaciados"
+    else:
+        pasos+= "Los puntos no son equiespaciados"
     return resultado, pasos
 
 
@@ -32,6 +52,7 @@ def L(i, *puntos: Tuple[int, int]):
             x_j = puntos[j][0]
             multiplicatoria *= (x - x_j) / (x_i - x_j)
     return multiplicatoria
+
 
 
 # a, mensaje = lagrange((1, 1), (3, 3), (4, 13), (5, 37), (7, 151))
