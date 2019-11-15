@@ -147,10 +147,16 @@ class Menu:
         self.resultado = resultado
 
         frame = ttk.LabelFrame(ventana, text="Resolviendo por el método de {}:".format(self.metodo))
-        Label(frame, text=pasos, anchor="e").grid(row=0, column=0)
+        scrollbar = Scrollbar(frame)
+        scrollbar.grid(row=0, column=4, rowspan=5, sticky=N+S)
+
+        listbox = Text(frame, wrap=WORD, yscrollcommand=scrollbar.set)
+        listbox.insert(END, pasos)
+        listbox.grid(row=0, column=0, columnspan=2)
+        scrollbar.config(command=listbox.yview)
 
         frameFinal = ttk.LabelFrame(ventana, text="Resultado Final")
-        frameFinal.grid(row=0, column=0, columnspan=4, sticky="ew", pady=2)
+        frameFinal.grid(row=0, column=0, columnspan=8, sticky="ew", pady=2)
         ttk.Label(frameFinal, text=resultado).grid(row=0, column=0, sticky="ew")
 
         frameValor = ttk.LabelFrame(ventana, text="Especializar en valor X")
@@ -163,14 +169,13 @@ class Menu:
         self.especializado = Label(self.frameEspe, text='', fg='black')
         self.especializado.grid(row=0, column=0, sticky="ew")
 
-
-
         framePasos = ttk.LabelFrame(ventana, text="Pasos")
         framePasos.grid(row=1, column=2, columnspan=2, sticky="ew")
-        ttk.Button(framePasos, text='Mostrar', command= lambda : frame.grid(row=3, column=0, columnspan=4))\
+        ttk.Button(framePasos, text='Mostrar', command= lambda : frame.grid(row=3, column=0, columnspan=4)) \
             .grid(row=0, column=0, columnspan=1, sticky="ew")
-        ttk.Button(framePasos, text='Ocultar', command = lambda: frame.grid_forget())\
+        ttk.Button(framePasos, text='Ocultar', command = lambda: frame.grid_forget()) \
             .grid(row=0, column=1, columnspan=1, sticky="ew")
+
 
     def calcular_punto(self):
         #Primero verifico si lo ingresado es valido
