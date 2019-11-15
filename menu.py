@@ -59,9 +59,9 @@ class Menu:
 
 
         # Borrar estas lineas luego:
-        borrar = [(0, 0), (1, 1), (2, 2), (3, 3)]
+        borrar = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)]
         for element in borrar:
-            self.tree.insert('', 0, text=element[0], values=element[1])
+            self.tree.insert('', 0, text=str(element[0]), values=str(element[1]))
 
 
 # User Input Validation
@@ -148,13 +148,6 @@ class Menu:
             resultado, pasos = newton_gregory_regresivo(*self.puntos)
 
         Label(frame, text=pasos, anchor="e").grid(row=0, column=0)
-        # mytext = StringVar(value=pasos)
-        # myentry = ttk.Entry(frame, textvariable=mytext, state='readonly')
-        # myentry.pack
-        # myscroll = ttk.Scrollbar(frame, orient='vertical', command=myentry.xview)
-        # myentry.config(xscrollcommand=myscroll.set)
-        # myentry.grid(row=1, sticky='ew')
-        # myscroll.grid(row=2, sticky='ew')
 
         frameFinal = ttk.LabelFrame(ventana, text="Resultado Final")
         frameFinal.grid(row=0, column=0, columnspan=2, sticky="ew")
