@@ -17,7 +17,7 @@ def newton_gregory(*puntos: Tuple[int, int]):
     for indice in range(cantidad_puntos):
         tabla[indice][0] = puntos[indice][1]
     # Genero la tabla de diferencias divididas
-    tabla = tabla_diferencias_divididas(puntos, tabla, cantidad_puntos);
+    tabla = tabla_diferencias_divididas(puntos, tabla, cantidad_puntos)
 
     pasos += tabla_diferencias_divididas_to_string(puntos, tabla)
     pasos += "\n\nAhora, planteamos el polinomio:\n" \
@@ -53,7 +53,7 @@ def newton_gregory_regresivo(*puntos: Tuple[int, int]):
     for indice in range(cantidad_puntos):
         tabla[indice][0] = puntos[indice][1]
     # Genero la tabla de diferencias divididas
-    tabla = tabla_diferencias_divididas_regresiva(puntos, tabla, cantidad_puntos);
+    tabla = tabla_diferencias_divididas_regresiva(puntos, tabla, cantidad_puntos)
     pasos += tabla_diferencias_divididas_to_string(puntos, tabla)
     pasos += "\n\nAhora, planteamos el polinomio:\n" \
              "\tP(x)=b0+b1(x-xn)+b2(x-xn)(x-xn-1)+....+bn(x-xn)(x-xn-1)....(x-x1)\n"

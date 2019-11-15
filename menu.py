@@ -1,6 +1,6 @@
 from tkinter import ttk
 from tkinter import *
-from newton_gregory import newton_gregory,newton_gregory_regresivo
+from newton_gregory import newton_gregory, newton_gregory_regresivo
 from lagrange import lagrange
 
 class Menu:
@@ -91,8 +91,8 @@ class Menu:
         self.message['text'] = 'El punto fue eliminado correctamente'
 
     def pcd_iniciar(self):
-        self.puntos = []
-        #self.puntos = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)]# Borrar esta linea y despues dejar la anterior
+        # self.puntos = []
+        self.puntos = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)] # Borrar esta linea y despues dejar la anterior
         for item in self.tree.get_children():
             elemento = self.tree.item(item)
             x = float(elemento["text"])
@@ -101,7 +101,7 @@ class Menu:
 
         if len(self.puntos) == 0:
             self.message['fg'] = 'red'
-            self.message['text'] = 'Debe ingresar al menos un número'
+            self.message['text'] = 'Debe ingresar al menos un punto'
             return
 
         self.puntos.sort(key=lambda tup: tup[0])
