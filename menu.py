@@ -59,7 +59,7 @@ class Menu:
 
 
         # Borrar estas lineas luego:
-        borrar = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)]
+        borrar = [(0, 0), (1, 1), (2, 2), (3, 3)]
         for element in borrar:
             self.tree.insert('', 0, text=element[0], values=element[1])
 
@@ -139,7 +139,7 @@ class Menu:
         ventana = Toplevel(self.wind)
 
         frame = ttk.LabelFrame(ventana, text="Resolviendo por el método de {}:".format(self.metodo))
-        frame.grid(row=0, column=0, columnspan=1)
+        frame.grid(row=1, column=0, columnspan=1)
         if(self.metodo == "Lagrange"):
             resultado, pasos = lagrange(*self.puntos)
         elif(self.metodo == "Newton-Gregory (Progresivo)"):
@@ -157,8 +157,17 @@ class Menu:
         # myscroll.grid(row=2, sticky='ew')
 
         frameFinal = ttk.LabelFrame(ventana, text="Resultado Final")
-        frameFinal.grid(row=2, column=0, columnspan=1)
+        frameFinal.grid(row=0, column=0, columnspan=2, sticky="ew")
         ttk.Label(frameFinal, text=resultado).grid(row=0, column=0, sticky="ew")
+
+        ttk.Button(frameFinal, text='Mostrar', command= lambda : frame.grid()).grid(row=0, column=2, columnspan=3)
+        ttk.Button(frameFinal, text='Ocultar', command = lambda: frame.grid_forget()).grid(row=0, column=5, columnspan=3)
+        frame.grid_forget()
+
+        entryP = Entry(frameFinal)
+        entryP.grid(row=0, column=8)
+        ttk.Button(frameFinal, text='Calcular').grid(row=0, column=9)
+
 
 
 def is_float(s):
