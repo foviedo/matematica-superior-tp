@@ -58,10 +58,10 @@ class Menu:
         ttk.Button(text='Iniciar', command=self.pcd_iniciar).grid(row=5, column=1, sticky=W + E)
 
 
-        # Borrar estas lineas luego:
-        borrar = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)]
-        for element in borrar:
-            self.tree.insert('', 0, text=str(element[0]), values=str(element[1]))
+        # # Puntos de prueba
+        # borrar = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)]
+        # for element in borrar:
+        #     self.tree.insert('', 0, text=str(element[0]), values=str(element[1]))
 
 
 # User Input Validation
@@ -130,7 +130,6 @@ class Menu:
         self.metodo = self.metodoVar.get()
         print(self.metodo)
         print(self.puntos)
-        # self.wind.withdraw()
 
         self.finter()
 
