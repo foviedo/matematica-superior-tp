@@ -3,6 +3,7 @@ from tkinter import *
 from newton_gregory import newton_gregory, newton_gregory_regresivo
 from lagrange import lagrange
 
+
 class Menu:
     def __init__(self, window):
         # Initializations
@@ -57,13 +58,35 @@ class Menu:
         ttk.Button(text='Iniciar', command=self.pcd_iniciar).grid(row=5, column=1, sticky=W + E)
 
 
+        # Borrar estas lineas luego:
+        borrar = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)]
+        for element in borrar:
+            self.tree.insert('', 0, text=element[0], values=element[1])
+
+
 # User Input Validation
     def validation(self):
         ptoX:str = self.px.get()
         ptoY:str = self.py.get()
         puntos_no_nulos = len(ptoX) != 0 and len(ptoY) != 0
         puntos_son_floats = is_float(ptoX) and is_float(ptoY)
-        return puntos_no_nulos and puntos_son_floats
+        unicidad = self.verificar_unicidad(ptoX)
+        return puntos_no_nulos and puntos_son_floats and unicidad
+
+    def verificar_unicidad(self, ptoX):
+        if is_float(ptoX):
+            ptoX = float(ptoX)
+        else:
+            return False
+
+        equis = []
+        for item in self.tree.get_children():
+            elemento = self.tree.item(item)
+            x = float(elemento["text"])
+            equis.append(x)
+
+        return ptoX not in equis
+
 
     def add_punto(self):
         if self.validation():
@@ -91,8 +114,7 @@ class Menu:
         self.message['text'] = 'El punto fue eliminado correctamente'
 
     def pcd_iniciar(self):
-        # self.puntos = []
-        self.puntos = [(1, 1), (3, 3), (4, 13), (5, 37), (7, 151)] # Borrar esta linea y despues dejar la anterior
+        self.puntos = []
         for item in self.tree.get_children():
             elemento = self.tree.item(item)
             x = float(elemento["text"])
