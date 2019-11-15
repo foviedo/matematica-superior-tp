@@ -15,11 +15,12 @@ def lagrange(*puntos: Tuple[int, int]):
         l_de_i = L(i, *puntos)
         pasos += "\tL{}(x) = {}\n\tf(x{}) = {}\n".format(i, l_de_i, i, y)
         sumatoria += l_de_i * y
-
+    resultado = simplify(sumatoria)
     pasos += "\nSumando los {} terminos anteriores obtenemos:\n\tP(x) = {}\n\n".format(cantidad_puntos, sumatoria)
-    pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(simplify(sumatoria))
-
-    return simplify(sumatoria), pasos
+    pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(resultado)
+    indice = str(resultado).find("**")
+    pasos += " Grado del polinomio: {}".format(str(resultado)[indice+2])
+    return resultado, pasos
 
 
 def L(i, *puntos: Tuple[int, int]):

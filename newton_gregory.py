@@ -36,10 +36,12 @@ def newton_gregory(*puntos: Tuple[int, int]):
         pasos += "Termino {} de {}:\n".format(i, cantidad_puntos)
         pasos += "\ta{} = {}\n\t{} * {}\n".format(i-1, a_n, a_n, p)
         sumatoria += ( a_n * p )
-
+    resultado = simplify(sumatoria)
     pasos +="\nSumando los terminos anteriores nuestro polinomio resulta:\n\tP(x) = {}\n\n".format(sumatoria)
-    pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(simplify(sumatoria))
-    return simplify(sumatoria), pasos
+    pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(resultado)
+    indice = str(resultado).find("**")
+    pasos += " Grado del polinomio: {}".format(str(resultado)[indice + 2])
+    return resultado, pasos
 
 
 def newton_gregory_regresivo(*puntos: Tuple[int, int]):
@@ -69,10 +71,12 @@ def newton_gregory_regresivo(*puntos: Tuple[int, int]):
         sumatoria += (b_n * p)
         pasos += "Termino {} de {}:\n".format(i, cantidad_puntos)
         pasos += "\tb{} = {}\n\t{} * {}\n".format(i-1, b_n, b_n, p)
-
+    resultado = simplify(sumatoria)
     pasos += "\nSumando los terminos anteriores nuestro polinomio resulta:\n\tP(x) = {}\n\n".format(sumatoria)
-    pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(simplify(sumatoria))
-    return simplify(sumatoria), pasos
+    pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(resultado)
+    indice = str(resultado).find("**")
+    pasos += " Grado del polinomio: {}".format(str(resultado)[indice + 2])
+    return resultado, pasos
 
 
 # Function to find the product term
