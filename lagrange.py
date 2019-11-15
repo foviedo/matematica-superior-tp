@@ -6,7 +6,7 @@ from sympy.abc import x, y
 def lagrange(*puntos: Tuple[int, int]):
     cantidad_puntos = len(puntos)
     sumatoria = 0
-    pasos = "Primero me fijo cuandos puntos tengo, en este caso son {}:\n\t{}\n".format(cantidad_puntos, puntos)
+    pasos = "Primero me fijo cuantos puntos tengo, en este caso son {}:\n\t{}\n".format(cantidad_puntos, puntos)
     pasos += "\nPor cada punto vamos a calcular primero el Li(x) y multiplicarlo por f(xi).\n" \
              "Luego, la suma de estos resultados será el polinomio interpolante de Lagrange.\n\n"
     for i in range(cantidad_puntos):
@@ -16,7 +16,7 @@ def lagrange(*puntos: Tuple[int, int]):
         pasos += "\tL{}(x) = {}\n\tf(x{}) = {}\n".format(i, l_de_i, i, y)
         sumatoria += l_de_i * y
     resultado = simplify(sumatoria)
-    pasos += "\nSumando los {} terminos anteriores obtenemos:\n\tP(x) = {}\n\n".format(cantidad_puntos, sumatoria)
+    pasos += "\nSumando los {} términos anteriores obtenemos:\n\tP(x) = {}\n\n".format(cantidad_puntos, sumatoria)
     pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(resultado)
     indice = str(resultado).find("**")
     if (indice == -1):
