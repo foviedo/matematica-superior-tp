@@ -40,7 +40,14 @@ def newton_gregory(*puntos: Tuple[int, int]):
     pasos +="\nSumando los terminos anteriores nuestro polinomio resulta:\n\tP(x) = {}\n\n".format(sumatoria)
     pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(resultado)
     indice = str(resultado).find("**")
-    pasos += " Grado del polinomio: {} \n".format(str(resultado)[indice + 2])
+    if (indice == -1):
+        indice = str(resultado).find("*")
+        if (indice == -1):
+            pasos += " Grado del polinomio: 0 \n"
+        else:
+            pasos += " Grado del polinomio: 1 \n"
+    else:
+        pasos += " Grado del polinomio: {} \n".format(str(resultado)[indice + 2])
     if (cantidad_puntos == 1):
         diferencia = 0
     else:
@@ -88,7 +95,14 @@ def newton_gregory_regresivo(*puntos: Tuple[int, int]):
     pasos += "\nSumando los terminos anteriores nuestro polinomio resulta:\n\tP(x) = {}\n\n".format(sumatoria)
     pasos += "Y operando finalmente obtenemos:\n\tP(x) = {}\n".format(resultado)
     indice = str(resultado).find("**")
-    pasos += " Grado del polinomio: {} \n".format(str(resultado)[indice + 2])
+    if (indice == -1):
+        indice = str(resultado).find("*")
+        if (indice == -1):
+            pasos += " Grado del polinomio: 0 \n"
+        else:
+            pasos += " Grado del polinomio: 1 \n"
+    else:
+        pasos += " Grado del polinomio: {} \n".format(str(resultado)[indice + 2])
     if (cantidad_puntos == 1):
         diferencia = 0
     else:
