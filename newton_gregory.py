@@ -1,6 +1,6 @@
 from typing import Tuple
 from sympy import simplify
-from sympy.abc import x, y
+from sympy.abc import x
 from texttable import Texttable
 
 

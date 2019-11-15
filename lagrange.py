@@ -1,6 +1,6 @@
 from typing import Tuple
-from sympy import simplify, cos, sin
-from sympy.abc import x, y
+from sympy import simplify
+from sympy.abc import x
 
 
 def lagrange(*puntos: Tuple[int, int]):
