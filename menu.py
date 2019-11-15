@@ -144,28 +144,51 @@ class Menu:
             resultado, pasos = newton_gregory(*self.puntos)
         elif(self.metodo == "Newton-Gregory (Regresivo)"):
             resultado, pasos = newton_gregory_regresivo(*self.puntos)
+        self.resultado = resultado
 
         frame = ttk.LabelFrame(ventana, text="Resolviendo por el método de {}:".format(self.metodo))
-        frame.grid(row=2, column=0, columnspan=4)
         Label(frame, text=pasos, anchor="e").grid(row=0, column=0)
 
         frameFinal = ttk.LabelFrame(ventana, text="Resultado Final")
-        frameFinal.grid(row=0, column=0, columnspan=4, sticky="ew")
+        frameFinal.grid(row=0, column=0, columnspan=4, sticky="ew", pady=2)
         ttk.Label(frameFinal, text=resultado).grid(row=0, column=0, sticky="ew")
 
         frameValor = ttk.LabelFrame(ventana, text="Especializar en valor X")
-        frameValor.grid(row=1, column=0, columnspan=2, sticky="ew")
-        entryP = Entry(frameValor)
-        entryP.grid(row=0, column=1)
-        ttk.Button(frameValor, text='Calcular').grid(row=0, column=9)
+        frameValor.grid(row=1, column=0, columnspan=2, sticky="ew", pady=2)
+        self.entryP = Entry(frameValor)
+        self.entryP.grid(row=0, column=1)
+        ttk.Button(frameValor, text='Calcular', command = self.calcular_punto).grid(row=0, column=9)
+
+        self.frameEspe = ttk.LabelFrame(ventana, text="Resultado de Especializar")
+        self.especializado = Label(self.frameEspe, text='', fg='black')
+        self.especializado.grid(row=0, column=0, sticky="ew")
+
+
 
         framePasos = ttk.LabelFrame(ventana, text="Pasos")
         framePasos.grid(row=1, column=2, columnspan=2, sticky="ew")
-        ttk.Button(framePasos, text='Mostrar', command= lambda : frame.grid(row=2, column=0, columnspan=4))\
+        ttk.Button(framePasos, text='Mostrar', command= lambda : frame.grid(row=3, column=0, columnspan=4))\
             .grid(row=0, column=0, columnspan=1, sticky="ew")
         ttk.Button(framePasos, text='Ocultar', command = lambda: frame.grid_forget())\
             .grid(row=0, column=1, columnspan=1, sticky="ew")
-        frame.grid_forget()
+
+    def calcular_punto(self):
+        #Primero verifico si lo ingresado es valido
+        puntos_no_nulos = len(self.entryP.get()) != 0
+        puntos_son_floats = is_float(self.entryP.get())
+        if not puntos_no_nulos or not puntos_son_floats:
+            self.especializado['fg'] = 'red'
+            self.especializado['text'] = "\tError: ingrese un numero decimal"
+            self.frameEspe.grid(row=2, column=0, columnspan=4, sticky=W+E, pady=2)
+            return
+
+        x = float(self.entryP.get())
+        ecuacion = self.resultado
+        resultado = eval(str(ecuacion))
+        self.frameEspe['text'] = "Resultado de especializar el polinomio en {}".format(x)
+        self.especializado['fg'] = 'black'
+        self.especializado['text'] = '\tP({}) = {}'.format(x, resultado)
+        self.frameEspe.grid(row=2, column=0, columnspan=4, sticky=W+E, pady=2)
 
 
 
