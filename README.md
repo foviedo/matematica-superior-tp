@@ -8,5 +8,7 @@ git clone https://github.com/FranciscoDumont/matematica-superior-tp.git
 cd matematica-superior-tp
 sudo pip install -r requirements.txt
 ```
-## Link al archivo ejecutable:
-https://drive.google.com/file/d/1p1Oqat_sKDvsAn_gIrU3jhjrYcws8zdU/view?usp=sharing
+## Extras:
+Manual presente en el mismo repositorio  
+[Descarga de ejecutable](https://drive.google.com/file/d/1p1Oqat_sKDvsAn_gIrU3jhjrYcws8zdU/view?usp=sharing)  
+Desarrollado principalmente junto a [@FranciscoDumont](https://github.com/FranciscoDumont)
