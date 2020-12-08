@@ -1,5 +1,6 @@
 # matematica-superior-tp
-MatematicaSuperior_TP2C2019_K3571_2
+MatematicaSuperior_TP2C2019_K3571_2  
+TP Finter, una app con interfaz gráfica que genera funciones polinómicas interpolantes a puntos dados, usando tanto el método de LaGrange como el de Newton Gregory
 
 ## Instalación :wrench:
 1. Clonar el repo e instalar los requisitos:
